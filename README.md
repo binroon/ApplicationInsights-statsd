@@ -32,6 +32,9 @@ Continue with the Existing Project instructions
 Install the `appinsights-statsd` backend npm module:
 
     $ cd /path/to/statsd
+    install from local folder
+    $ npm install /path/to/appinsights-statsd --save
+    or install from npm registry
     $ npm install appinsights-statsd --save
 
 Add the backend and configuration to your statsd config file (`appinsights.js`):

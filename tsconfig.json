@@ -8,7 +8,7 @@
         "sourceMap": true
     },
     "files": [
-        "lib/appinsights.ts",
+        "lib/appinsights.js",
         "tests/appinsights.test.ts",
         "typings/index.d.ts"
     ]
