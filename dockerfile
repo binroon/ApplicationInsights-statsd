@@ -16,22 +16,23 @@ ENV NODE_ENV $NODE_ENV
 RUN git clone https://github.com/statsd/statsd.git
 RUN cd statsd\
     && npm install && npm cache clean --force\
-    && npm install ..\
+    && npm install https://github.com/binroon/ApplicationInsights-statsd.git\
+    && npm install && npm cache clean --force\
     && echo "\
     {\
         backends: ['appinsights-statsd'], \
         aiInstrumentationKey: '${NODE_ENV}',\ 
-        aiPrefix: 'airflow2', \
+        aiPrefix: 'airflow', \
         aiTrackStatsDMetrics: true \
         } "\
     >> ./config.js
 
 # Copy required src (see .dockerignore)
-COPY ./statsd /usr/src/app
+# COPY ./statsd /usr/src/app
 
 # Expose required ports
 EXPOSE 8125/udp
 EXPOSE 8126
 
 # Start statsd with application insights backend
-ENTRYPOINT [ "node", "stats.js", "config.js" ]
+ENTRYPOINT [ "node", "statsd/stats.js", "statsd/config.js" ]
