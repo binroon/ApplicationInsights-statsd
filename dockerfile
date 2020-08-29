@@ -10,25 +10,25 @@ WORKDIR /usr/src/app
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 
+ARG APPLICATION_INSIGHTS_INSTRUMENTATION_KEY
+ENV APPLICATION_INSIGHTS_INSTRUMENTATION_KEY $APPLICATION_INSIGHTS_INSTRUMENTATION_KEY
+
 # Install dependencies
 # COPY package.json /usr/src/app/
 # clone statsd repo to folder "statsd", in statsd to npm install appinsights-statsd from up-level folder
 RUN git clone https://github.com/statsd/statsd.git
 RUN cd statsd\
-    && npm install && npm cache clean --force\
-    && npm install https://github.com/binroon/ApplicationInsights-statsd.git\
+    && npm install \
+    && npm install ..\
     && npm install && npm cache clean --force\
     && echo "\
     {\
         backends: ['appinsights-statsd'], \
-        aiInstrumentationKey: '${NODE_ENV}',\ 
+        aiInstrumentationKey: '${APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}',\ 
         aiPrefix: 'airflow', \
         aiTrackStatsDMetrics: true \
         } "\
     >> ./config.js
-
-# Copy required src (see .dockerignore)
-# COPY ./statsd /usr/src/app
 
 # Expose required ports
 EXPOSE 8125/udp
