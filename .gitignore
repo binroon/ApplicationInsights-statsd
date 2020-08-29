@@ -1,5 +1,5 @@
 # Generated files
-*.js
+# *.js commented out, it ignores all *.js files such as lib/appinsights.js
 *.js.map
 
 # Logs
