@@ -1,6 +1,9 @@
 FROM node:latest
 
 RUN mkdir -p /usr/src/app
+RUN mkdir -p /usr/src/app/appinsights-statsd
+COPY . /usr/src/app/appinsights-statsd
+
 WORKDIR /usr/src/app
 
 # Install python
@@ -18,8 +21,7 @@ ENV APPLICATION_INSIGHTS_INSTRUMENTATION_KEY $APPLICATION_INSIGHTS_INSTRUMENTATI
 # clone statsd repo to folder "statsd", in statsd to npm install appinsights-statsd from up-level folder
 RUN git clone https://github.com/statsd/statsd.git
 RUN cd statsd\
-    && npm install \
-    && npm install ..\
+    && npm install /usr/src/app/appinsights-statsd\
     && npm install && npm cache clean --force\
     && echo "\
     {\
