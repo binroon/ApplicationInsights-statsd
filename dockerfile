@@ -24,11 +24,11 @@ RUN cd statsd\
     && npm install /usr/src/app/appinsights-statsd\
     && npm install && npm cache clean --force\
     && echo "\
-    {\
-        backends: ['appinsights-statsd'], \
-        aiInstrumentationKey: '${APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}',\ 
-        aiPrefix: 'airflow', \
-        aiTrackStatsDMetrics: true \
+    {\n\
+        backends: ['appinsights-statsd'],\n\
+        aiInstrumentationKey: '${APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}',\n\ 
+        aiPrefix: 'airflow', \n\
+        aiTrackStatsDMetrics: true \n\
         } "\
     >> ./config.js
 
