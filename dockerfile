@@ -19,17 +19,21 @@ ENV APPLICATION_INSIGHTS_INSTRUMENTATION_KEY $APPLICATION_INSIGHTS_INSTRUMENTATI
 # Install dependencies
 # COPY package.json /usr/src/app/
 # clone statsd repo to folder "statsd", in statsd to npm install appinsights-statsd from up-level folder
-RUN echo "\
+RUN git clone https://github.com/statsd/statsd.git
+RUN cd statsd\
+    && npm install /usr/src/app/appinsights-statsd\
+    && npm install && npm cache clean --force\
+    && echo "\
     {\
         backends: ['appinsights-statsd'], \n\
         aiInstrumentationKey: '${NODE_ENV}',\n\ 
         aiPrefix: 'airflow2', \n\
         aiTrackStatsDMetrics: true,\n\
         log:{\n\
-            backend: syslog\n\
+            backend: 'syslog'\n\
         }\n\
     } "\
-    >> ./appinsights.js
+    >> ./config.js
 
 # Expose required ports
 EXPOSE 8125/udp
