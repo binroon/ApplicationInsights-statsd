@@ -26,7 +26,7 @@ RUN cd statsd\
     && echo "\
     {\
         backends: ['appinsights-statsd'], \n\
-        aiInstrumentationKey: '${NODE_ENV}',\n\ 
+        aiInstrumentationKey: '${APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}',\n\ 
         aiPrefix: 'airflow2', \n\
         aiTrackStatsDMetrics: true,\n\
         log:{\n\
