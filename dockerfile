@@ -10,9 +10,6 @@ WORKDIR /usr/src/app
 # RUN apk add --no-cache --update g++ gcc libgcc libstdc++ linux-headers make python
 
 # Setup node envs
-ARG NODE_ENV
-ENV NODE_ENV $NODE_ENV
-
 ARG APPLICATION_INSIGHTS_INSTRUMENTATION_KEY
 ENV APPLICATION_INSIGHTS_INSTRUMENTATION_KEY $APPLICATION_INSIGHTS_INSTRUMENTATION_KEY
 
@@ -24,9 +21,9 @@ RUN cd statsd\
     && npm install /usr/src/app/appinsights-statsd\
     && npm install && npm cache clean --force\
     && echo "\
-    {\
+    {\n\
         backends: ['appinsights-statsd'], \n\
-        aiInstrumentationKey: '${APPLICATION_INSIGHTS_INSTRUMENTATION_KEY}',\n\ 
+        aiInstrumentationKey: process.env.APPLICATION_INSIGHTS_INSTRUMENTATION_KEY,\n\ 
         aiPrefix: 'airflow2', \n\
         aiTrackStatsDMetrics: true,\n\
         log:{\n\
