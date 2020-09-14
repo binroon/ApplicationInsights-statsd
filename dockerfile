@@ -9,10 +9,6 @@ WORKDIR /usr/src/app
 # Install python
 # RUN apk add --no-cache --update g++ gcc libgcc libstdc++ linux-headers make python
 
-# Setup node envs
-ARG APPLICATION_INSIGHTS_INSTRUMENTATION_KEY
-ENV APPLICATION_INSIGHTS_INSTRUMENTATION_KEY $APPLICATION_INSIGHTS_INSTRUMENTATION_KEY
-
 # Install dependencies
 # COPY package.json /usr/src/app/
 # clone statsd repo to folder "statsd", in statsd to npm install appinsights-statsd from up-level folder
